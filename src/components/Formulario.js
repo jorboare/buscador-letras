@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Formulario = () => {
+const Formulario = ({ guardarBusquedaLetra }) => {
 
 
     //State búsqueda
@@ -29,15 +29,16 @@ const Formulario = () => {
             guardarError(true)
             return
         }
+        guardarError(false)
 
         //Todo bien, pasar al componente principal
 
-        guardarError(false)
-
+        guardarBusquedaLetra(busqueda)
 
     }
     return (
         <div className='bg-info'>
+            {error ? <p className='alert alert-danger text-center p-2'>Todos los cambios con obligatorios</p> : null}
             <div className='container'>
                 <div className='row'>
                     <form
