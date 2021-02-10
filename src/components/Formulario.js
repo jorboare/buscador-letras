@@ -1,11 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Formulario = () => {
+
+
+    //State búsqueda
+    const [busqueda, guardarBusqueda] = useState({
+        artista: '',
+        cancion: ''
+    })
+
+    //State Control de Errores
+    const [error, guardarError] = useState(false)
+
+    const { artista, cancion } = busqueda
+
+
+    const actualizarState = e => {
+        guardarBusqueda({
+            ...busqueda,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const buscarInformacion = e => {
+        e.preventDefault()
+
+        if (artista.trim() === '' || cancion.trim() === '') {
+            guardarError(true)
+            return
+        }
+
+        //Todo bien, pasar al componente principal
+
+        guardarError(false)
+
+
+    }
     return (
         <div className='bg-info'>
             <div className='container'>
                 <div className='row'>
                     <form
+                        onSubmit={buscarInformacion}
                         className='col card text-white bg-transparent mb-5 pt-5 pb-2'>
 
                         <fieldset>
@@ -21,7 +57,10 @@ const Formulario = () => {
                                             type='text'
                                             className='form-control'
                                             name='artista'
-                                            placeholder='Nombre Artista' />
+                                            placeholder='Nombre Artista'
+                                            value={artista}
+                                            onChange={actualizarState}
+                                        />
                                     </div>
 
                                 </div>
@@ -33,7 +72,10 @@ const Formulario = () => {
                                             type='text'
                                             className='form-control'
                                             name='cancion'
-                                            placeholder='Nombre Canción' />
+                                            placeholder='Nombre Canción'
+                                            value={cancion}
+                                            onChange={actualizarState}
+                                        />
                                     </div>
 
                                 </div>
